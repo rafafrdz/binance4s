@@ -1,13 +1,12 @@
 package dev.rafafrdz.binance.app
 
-import dev.rafafrdz.binance.BinanceOptionTask
-import dev.rafafrdz.binance.api.options.QueryRequest
+import dev.rafafrdz.binance._
+import dev.rafafrdz.binance.api.options._
 import dev.rafafrdz.binance.api.reqest.get._
-import dev.rafafrdz.binance.core.config.BinanceConfig
-import dev.rafafrdz.binance.core.session.{BinanceContext, BinanceContextBuilder}
-import dev.rafafrdz.binance.core.session.options.BinanceAPIUri
-import dev.rafafrdz.binance.core.session.security.Credential
-import requests.Response
+import dev.rafafrdz.binance.core.config._
+import dev.rafafrdz.binance.core.session._
+import dev.rafafrdz.binance.core.session.options._
+import dev.rafafrdz.binance.core.session.security._
 
 object Example {
 
@@ -21,7 +20,6 @@ object Example {
         "binance.credential.access.key" -> "a"
         , "binance.credential.secret.key" -> "s"
       ).define()
-
 
 
   val bcntxBuilder: BinanceContextBuilder =
@@ -42,11 +40,11 @@ object Example {
   //  val credential: Credential =
   //    Credential.from(bconf)
 
-    val bcntx: BinanceContext =
-      BinanceContext
-        .build()
-        .from(bconf)
-        .create()
+  val bcntx: BinanceContext =
+    BinanceContext
+      .build()
+      .from(bconf)
+      .create()
 
   val credB2: Credential = bcntx2.credential()
 
@@ -54,25 +52,25 @@ object Example {
 
   val currentCredentials: Credential = bcntx.credential()
 
-  val queryDepositHistory: BinanceOptionTask[QueryRequest] =
+  val queryDepositHistory: BinanceQuery =
     QueryRequest
       .build()
       .timestamp()
       .signature
 
-  val responseDepositHistory: BinanceOptionTask[Response] =
+  val responseDepositHistory: BinanceRequest =
     depositHistory(queryDepositHistory)
 
-  val queryCurrentAVGPrice: BinanceOptionTask[QueryRequest] =
+  val queryCurrentAVGPrice: BinanceQuery =
     QueryRequest
       .build()
       .symbol("BNBUSDT")
       .formalize()
 
-  val responseCurrentAVGPrice: BinanceOptionTask[Response] =
+  val responseCurrentAVGPrice: BinanceRequest =
     currentAVGPrice(queryCurrentAVGPrice)
 
-  val queryConvertTradeHistory: BinanceOptionTask[QueryRequest] =
+  val queryConvertTradeHistory: BinanceQuery =
     QueryRequest
       .build()
       .startTime("20/08/2022 17:15:00")
@@ -82,7 +80,7 @@ object Example {
       .signature
 
 
-  val responseConvertTradeHistory: BinanceOptionTask[Response] =
+  val responseConvertTradeHistory: BinanceRequest =
     convertTradeHistory(queryConvertTradeHistory)
 
 
