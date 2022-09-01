@@ -1,11 +1,13 @@
+![binance-logo](https://binance-docs.github.io/apidocs/spot/en/images/logo.svg)
+
 # Binance API Scala
+
 ![](https://img.shields.io/badge/dev-wip-yellow?logo=github&logoColor=white)
 ![](https://img.shields.io/badge/release-v2.13/1.1.2-gree)
 
 A functional Binance API built on Scala language.
-### Introduction
 
-![binance-logo](https://binance-docs.github.io/apidocs/spot/en/images/logo.svg)
+### Introduction
 
 Binance offers access to Spot, Margin, Futures and Options API trading for over 300 Digital and Fiat currencies.
 API trading provides a testing environment, API documentation, and Sample Code in 6 languages.
