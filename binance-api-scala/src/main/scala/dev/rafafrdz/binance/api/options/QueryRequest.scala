@@ -2,8 +2,8 @@ package dev.rafafrdz.binance.api.options
 
 import dev.rafafrdz.binance.BinanceOptionTask
 import dev.rafafrdz.binance.api.options.utils.ApiUtils
-import dev.rafafrdz.binance.session.BinanceContext
-import dev.rafafrdz.binance.session.security.Hash
+import dev.rafafrdz.binance.core.session.BinanceContext
+import dev.rafafrdz.binance.core.session.security.Hash
 
 import scala.util.Try
 

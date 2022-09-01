@@ -16,7 +16,7 @@ object get {
         qr <- query(bctx)
         url <- Option(s"${bctx.api().uri}/api/v3/account?$qr")
         acc <- bctx.credential().getAccessKey
-        req <- Try(requests.get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))).toOption
+        req <- get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))
       } yield req
 
   /** /sapi/v1/capital/deposit/hisrec? */
@@ -26,7 +26,7 @@ object get {
         qr <- query(bctx)
         url <- Option(s"${bctx.api().uri}/sapi/v1/capital/deposit/hisrec?$qr")
         acc <- bctx.credential().getAccessKey
-        req <- Try(requests.get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))).toOption
+        req <- get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))
       } yield req
 
   /** /api/v3/avgPrice? */
@@ -37,7 +37,7 @@ object get {
         qr <- query(bctx)
         url <- Option(s"${bctx.api().uri}/api/v3/avgPrice?$qr")
         acc <- bctx.credential().getAccessKey
-        req <- Try(requests.get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))).toOption
+        req <- get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))
       } yield req
 
   /** /sapi/v1/convert/tradeFlow? */
@@ -47,6 +47,9 @@ object get {
         qr <- query(bctx)
         url <- Option(s"${bctx.api().uri}/sapi/v1/convert/tradeFlow?$qr")
         acc <- bctx.credential().getAccessKey
-        req <- Try(requests.get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))).toOption
+        req <- get(url, headers = Map("Content-Type" -> "application/json", "X-MBX-APIKEY" -> acc))
       } yield req
+
+  private def get(url: String, headers: Map[String, String]): Option[Response] =
+    Try(requests.get(url, headers = headers)).toOption
 }

@@ -1,8 +1,8 @@
-package dev.rafafrdz.binance.session.security
+package dev.rafafrdz.binance.core.session.security
 
 import dev.rafafrdz.binance.api.implicits.types._
-import dev.rafafrdz.binance.config.BinanceConfig
-import dev.rafafrdz.binance.session.BinanceOption
+import dev.rafafrdz.binance.core.config.BinanceConfig
+import dev.rafafrdz.binance.core.session.BinanceOption
 
 
 sealed trait Credential extends BinanceOption {
@@ -36,6 +36,9 @@ object Credential {
       case (Some(k), Some(s)) => CredentialProvived(k, s)
       case _ => NonProvided
     }
-
   }
+  def get: BinanceConfig => String => Credential =
+    (bconf: BinanceConfig) => {
+      case Credential.refOption => from(bconf)
+    }
 }

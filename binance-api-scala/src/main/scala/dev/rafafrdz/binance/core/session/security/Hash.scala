@@ -1,7 +1,7 @@
-package dev.rafafrdz.binance.session.security
+package dev.rafafrdz.binance.core.session.security
 
 import com.roundeights.hasher.{Algo, Digest}
-import dev.rafafrdz.binance.session.BinanceContext
+import dev.rafafrdz.binance.core.session.BinanceContext
 import dev.rafafrdz.binance.{BinanceOptionTask, BinanceTask}
 
 sealed trait Algorithm

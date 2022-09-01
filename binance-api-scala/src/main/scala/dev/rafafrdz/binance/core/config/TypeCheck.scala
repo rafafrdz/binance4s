@@ -1,6 +1,7 @@
-package dev.rafafrdz.binance.config
+package dev.rafafrdz.binance.core.config
 
-import dev.rafafrdz.binance.session.options.BinanceAPIUri
+import dev.rafafrdz.binance.core.session.options.BinanceAPIUri
+import dev.rafafrdz.binance.core.session.security.Credential
 
 sealed trait TypeCheck[T]
 
@@ -16,6 +17,7 @@ object TypeCheck {
     case object StringType extends TypeCheck[String]
 
     case object ApiType extends TypeCheck[BinanceAPIUri]
+    case object CredentialType extends TypeCheck[Credential]
   }
 
 }
