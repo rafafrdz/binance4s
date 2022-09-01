@@ -1,8 +1,9 @@
 package dev.rafafrdz.binance.api
 
-import dev.rafafrdz.binance.config.TypeCheck
-import dev.rafafrdz.binance.config.TypeCheck.domain
-import dev.rafafrdz.binance.session.options.BinanceAPIUri
+import dev.rafafrdz.binance.core.config.TypeCheck
+import dev.rafafrdz.binance.core.config.TypeCheck.domain
+import dev.rafafrdz.binance.core.session.options.BinanceAPIUri
+import dev.rafafrdz.binance.core.session.security.Credential
 
 object implicits {
   object types {
@@ -10,6 +11,7 @@ object implicits {
     implicit val inttc: TypeCheck[Int] = domain.IntType
     implicit val stringtc: TypeCheck[String] = domain.StringType
     implicit val apitc: TypeCheck[BinanceAPIUri] = domain.ApiType
+    implicit val credtc: TypeCheck[Credential] = domain.CredentialType
   }
 
 }

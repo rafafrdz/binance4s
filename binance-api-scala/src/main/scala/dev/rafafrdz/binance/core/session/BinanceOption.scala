@@ -1,4 +1,4 @@
-package dev.rafafrdz.binance.session
+package dev.rafafrdz.binance.core.session
 
 private[session] trait BinanceOption {
   /** Referential name of the option */
