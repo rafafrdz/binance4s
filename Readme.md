@@ -1,6 +1,7 @@
-![binance-logo](https://binance-docs.github.io/apidocs/spot/en/images/logo.svg)
 
 # Binance API Scala
+
+![binance-logo](https://binance-docs.github.io/apidocs/spot/en/images/logo.svg)
 
 ![](https://img.shields.io/badge/dev-wip-yellow?logo=github&logoColor=white)
 ![](https://img.shields.io/badge/release-v2.13/1.1.2-gree)
