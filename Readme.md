@@ -30,10 +30,10 @@ binance.api.mode = ${?BINANCE_API_MODE}
 ```scala
 package dev.rafafrdz.binance.examples
 
-import dev.rafafrdz.binance._
-import dev.rafafrdz.binance.api.options._
-import dev.rafafrdz.binance.api.reqest.get._
-import dev.rafafrdz.binance.core.session._
+import io.github.rafafrdz.binance._
+import io.github.rafafrdz.binance.api.options._
+import io.github.rafafrdz.binance.api.reqest.get._
+import io.github.rafafrdz.binance.core.session._
 import requests.Response
 
 object BinanceAppEx {
