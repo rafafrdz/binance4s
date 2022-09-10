@@ -1,9 +1,17 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.8"
+name := "binance-api"
+version := "0.2.0"
+scalaVersion := "2.13.8"
+organization := "rafafrdz"
+
+// configs for sbt-github-packages plugin
+githubOwner := "rafafrdz"
+githubRepository := "github-packages-playground"
+githubTokenSource := TokenSource.GitConfig("github.token")
+
+
 
 lazy val root = (project in file("."))
-  .settings(name := "binance-api-scala")
 
 lazy val extraDependencies =
   Seq(
