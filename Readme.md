@@ -28,7 +28,7 @@ binance.api.mode = ${?BINANCE_API_MODE}
 ### Example of a simple Binance request
 
 ```scala
-package dev.rafafrdz.binance.examples
+package io.github.rafafrdz.binance.examples
 
 import io.github.rafafrdz.binance._
 import io.github.rafafrdz.binance.api.options._
