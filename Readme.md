@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/dev-wip-yellow?logo=github&logoColor=white)
 ![](https://img.shields.io/badge/release-v2.13/1.1.2-gree)
 
-A functional Binance API built on Scala language.
+Binance API Scala is a lightweight Scala library for interacting with the Binance API in a funtional way, providing complete API coverage, and supporting synchronous and asynchronous requests.
 
 ### Introduction
 
