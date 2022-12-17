@@ -11,6 +11,9 @@ lazy val extraDependencies =
     "com.lihaoyi" %% "requests" % "0.6.9"
      , "com.outr" %% "hasher" % "1.2.2"
     , "com.typesafe" % "config" % "1.4.2"
+    , "org.typelevel" %% "cats-effect" % "3.3.14"
+    , "org.typelevel" %% "cats-core" % "2.7.0"
+
   )
 
 
