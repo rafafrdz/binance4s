@@ -9,7 +9,7 @@ object Dependencies {
 
   /** Modules dependencies */
   lazy val common = depends(Cats.core, Cats.effects, typeSafeConfig, hasher, lihaoyiRequests)
-  lazy val module1 = common // empty
+  lazy val examples = common // empty
   lazy val module2 = common // empty
 
   /** Common dependencies */

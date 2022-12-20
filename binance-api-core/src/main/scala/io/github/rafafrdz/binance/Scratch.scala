@@ -10,10 +10,10 @@ object Scratch extends App {
 
   val bclient: BinanceClient =
     BinanceClient
-      .create()
-      .credential("user", "pass")
+      .build
+      .credential
       .test
-      .build()
+      .create()
 
   val taskHash: BinanceTask[String] = Hash.hmec256("strange")
 
@@ -21,12 +21,11 @@ object Scratch extends App {
 
   val query: BinanceTask[BinanceQuery] =
     BinanceQuery
-      .build()
+      .build
       .startTime("20/08/2022 17:15:00")
       .endTime("2022/08/24")
       .symbol("BNBUSDT")
-      .timestamp()
-      .formalize()
+      .timestamp.?
 
   val algo2 = bclient.executeUnsafe(query).show()
   0

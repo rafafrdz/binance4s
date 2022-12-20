@@ -6,6 +6,8 @@ import io.github.rafafrdz.binance.BinanceTask
 import io.github.rafafrdz.binance.api.utils
 import io.github.rafafrdz.binance.security.Hash
 
+import java.sql.Timestamp
+
 
 case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[Long] = None) {
   self =>
@@ -20,7 +22,7 @@ case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[
 
   /** Methods for specifics options in the query */
 
-  def timestamp(): BinanceQuery = {
+  def timestamp: BinanceQuery = {
     lazy val t: Long = System.currentTimeMillis()
     add("timestamp" -> t).copy(time = Option(t))
   }
@@ -30,6 +32,8 @@ case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[
   def startTime(timestamp: String): BinanceQuery = startTime(utils.timestamp.parse(timestamp).getTime)
 
   def endTime(time: Long): BinanceQuery = add("endTime" -> time)
+
+  def endTime: BinanceQuery = endTime(System.currentTimeMillis())
 
   def endTime(timestamp: String): BinanceQuery = endTime(utils.timestamp.parse(timestamp).getTime)
 
@@ -41,11 +45,14 @@ case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[
         hash <- Hash.hmec256(show())(bclient)
       } yield add("signature" -> hash)
 
-  def formalize(): BinanceTask[BinanceQuery] =
+  def formalize: BinanceTask[BinanceQuery] =
     self.time match {
       case Some(_) => signature
       case None => _ => self.pure[IO]
     }
+
+  def end: BinanceTask[BinanceQuery] = formalize
+  def ? : BinanceTask[BinanceQuery] = formalize
 
   def show(): String = options.mkString("&")
 
@@ -56,7 +63,7 @@ object BinanceQuery {
 
   private val empty: BinanceQuery = BinanceQuery(Set.empty)
 
-  def build(): BinanceQuery = empty
+  def build: BinanceQuery = empty
 
   def build[T](kv: (String, T)*): BinanceQuery = set(empty, kv: _*)
 

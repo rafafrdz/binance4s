@@ -23,14 +23,12 @@ lazy val core = (project in file("binance-api-core"))
 //  .withId("core-old")
 //  .settings(ProjectSettings.core: _*)
 
-//lazy val module1 = (project in file("module-1"))
-//  .withId("module-1")
-//  .settings(
-//    name := "spark-sbt-module-1"
-//  )
-//  .settings(ProjectSettings.module1: _*)
-//  .dependsOn(core % Dependencies.classDependencyCompileTest)
-//
+lazy val examples = (project in file("binance-api-examples"))
+  .withId("examples")
+  .settings(name := "examples")
+  .settings(ProjectSettings.examples: _*)
+  .dependsOn(core % Dependencies.classDependencyCompileTest)
+
 //lazy val module2 = (project in file("module-2"))
 //  .withId("module-2")
 //  .settings(

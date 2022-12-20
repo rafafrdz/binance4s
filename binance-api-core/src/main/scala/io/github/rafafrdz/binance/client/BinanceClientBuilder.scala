@@ -1,6 +1,8 @@
 package io.github.rafafrdz.binance.client
 
 import cats.effect.IO
+import cats.implicits._
+import com.typesafe.config.Config
 import io.github.rafafrdz.binance.config._
 import io.github.rafafrdz.binance.config.credential.{BinanceCredential, OAuth}
 import io.github.rafafrdz.binance.config.mode.{API, BinanceMode, Test}
@@ -13,9 +15,17 @@ trait BinanceClientBuilder {
   val bconf: BinanceConfig
 
   /** Builder */
-  def build(): BinanceClient = new BinanceClient {
+  def create(): BinanceClient = new BinanceClient {
     override val config: BinanceConfig = bconf
   }
+
+  def from(conf: BinanceConfig): BinanceClientBuilder = new BinanceClientBuilder {
+    override val bconf: BinanceConfig = conf
+  }
+
+  def from(conf: Config): BinanceClientBuilder = from(BinanceConfig.from(conf))
+
+  def from(path: String): BinanceClientBuilder = from(BinanceConfig.from(path))
 
   /** *************
    * Setter methods
@@ -87,6 +97,9 @@ object BinanceClientBuilder {
 
   /** Private methods */
   private def parse[O <: BinanceOption](ref: String, default: O)(implicit algebra: BinanceOptionT[O]): IO[O] = {
-    algebra.parse(ref).map(opt => opt.getOrElse(default))
+    for {
+      ioa <- algebra.parse(ref)
+      iob = ioa.getOrElse(default)
+    } yield iob
   }
 }

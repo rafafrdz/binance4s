@@ -17,7 +17,7 @@ trait BinanceClient {
 }
 
 object BinanceClient {
-  def create(): BinanceClientBuilder = new BinanceClientBuilder {
+  def build: BinanceClientBuilder = new BinanceClientBuilder {
     override val bconf: BinanceConfig = BinanceConfig.default
   }
 }

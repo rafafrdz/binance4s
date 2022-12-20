@@ -1,6 +1,9 @@
 package io.github.rafafrdz.binance.config.mode
 
+import com.typesafe.config.Config
 import io.github.rafafrdz.binance.config.option.{BinanceOption, BinanceOptionT}
+
+import scala.util.Try
 
 sealed trait BinanceMode extends BinanceOption {
 
@@ -29,6 +32,21 @@ object BinanceMode {
 
   implicit val testAlgebra: BinanceOptionT[Test] =
     BinanceOptionT.make[Test](_ => Test, opt => Map(ref -> opt.value))
+
+  def from(conf: Config): BinanceMode = {
+    val modeOpt: Try[BinanceMode] = for {
+      modeRawOpt <- Try(conf.getString(BinanceMode.ref))
+      modeOpt = BinanceMode.cast(modeRawOpt)
+    } yield modeOpt
+    modeOpt.getOrElse(Test)
+  }
+
+  def from(map: Map[String, String]): Option[BinanceMode] = {
+    val modeOpt: Option[BinanceMode] = for {
+      modeRawOpt <- map.get(BinanceMode.ref)
+    } yield BinanceMode.cast(modeRawOpt)
+    modeOpt
+  }
 
 }
 
