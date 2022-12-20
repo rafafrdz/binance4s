@@ -6,7 +6,7 @@ object ProjectSettings {
   /** Modules settings */
   lazy val root = commonSettings
   lazy val examples = commonSettings ++ Dependencies.examples
-  lazy val module2 = commonSettings ++ Dependencies.module2
+  lazy val request = commonSettings ++ Dependencies.request
   lazy val core = commonSettings ++ Dependencies.common
 
   private lazy val general = Seq(

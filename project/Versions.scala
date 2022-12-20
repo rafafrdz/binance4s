@@ -7,4 +7,5 @@ object Versions {
   lazy val typeSafeConfig: String = "1.4.2"
   lazy val hasher: String = "1.2.2"
   lazy val lihaoyiRequests: String = "0.6.9"
+  lazy val http4s = "0.23.16"
 }

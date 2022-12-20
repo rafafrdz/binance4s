@@ -1,4 +1,4 @@
-package binance1.examples
+package io.github.rafafrdz.binance.examples
 
 import io.github.rafafrdz.binance._
 import io.github.rafafrdz.binance.api.query.BinanceQuery
