@@ -1,5 +1,5 @@
 object Versions {
-  lazy val scala = "2.12.8"
+  lazy val scala = "2.13.8"
   lazy val scalaTest = "3.2.9"
 
   lazy val cats: String = "2.7.0"
