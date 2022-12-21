@@ -1,7 +1,6 @@
 package io.github.rafafrdz.binance.client
 
 import cats.effect.IO
-import cats.implicits._
 import com.typesafe.config.Config
 import io.github.rafafrdz.binance.config._
 import io.github.rafafrdz.binance.config.credential.{BinanceCredential, OAuth}
@@ -67,11 +66,6 @@ trait BinanceClientBuilder {
   def api: BinanceClientBuilder = mode(API.value)
 
   def test: BinanceClientBuilder = mode(Test.value)
-
-  private def setMode(implicit algebra: BinanceOptionT[BinanceMode]): BinanceClientBuilder = {
-    val newMode: IO[BinanceMode] = BinanceClientBuilder.parse(BinanceMode.ref, BinanceMode.default)
-    setMode(newMode)
-  }
 
   /** private set mode */
   private def setMode(newMode: IO[BinanceMode]): BinanceClientBuilder = {

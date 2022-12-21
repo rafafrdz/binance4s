@@ -6,8 +6,6 @@ import io.github.rafafrdz.binance.BinanceTask
 import io.github.rafafrdz.binance.api.utils
 import io.github.rafafrdz.binance.security.Hash
 
-import java.sql.Timestamp
-
 
 case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[Long] = None) {
   self =>
