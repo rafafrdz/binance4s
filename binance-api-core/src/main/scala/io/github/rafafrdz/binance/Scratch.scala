@@ -15,7 +15,7 @@ object Scratch extends IOApp.Simple {
       .test
       .create()
 
-  val taskHash: BinanceTask[String] = Hash.hmec256("strange")
+  val taskHash: BinanceTask[String] = Hash.hmac256("strange")
 
   val algo: IO[String] = bclient.execute(taskHash)
 
