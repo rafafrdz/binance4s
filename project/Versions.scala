@@ -8,4 +8,6 @@ object Versions {
   lazy val hasher: String = "1.2.2"
   lazy val lihaoyiRequests: String = "0.6.9"
   lazy val http4s = "0.23.16"
+  lazy val circe = "0.14.3"
+
 }

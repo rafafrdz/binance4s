@@ -21,7 +21,7 @@ object ProjectSettings {
       email = "your@email",
       url = url("https://github.com/rafafrdz")
     )),
-    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xfuture", "-Xlint"),
+    scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint"),
     javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
     cancelable in Global := true //allow to use Ctrl + C in sbt prompt
   )

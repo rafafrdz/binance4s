@@ -9,7 +9,7 @@ object Dependencies {
 
   /** Modules dependencies */
   lazy val common = depends(Cats.core, Cats.effects, typeSafeConfig, hasher)
-  lazy val request = depends(Http4s.client, Http4s.server, Http4s.dsl)
+  lazy val request = depends(Http4s.client, Http4s.server, Http4s.dsl, Http4s.circe, Circe.core, Circe.generic, Circe.parser)
   lazy val examples = common // empty
 
   /** Common dependencies */
@@ -33,7 +33,13 @@ object Dependencies {
     lazy val client: ModuleID = "org.http4s" %% "http4s-ember-client" % Versions.http4s
     lazy val server: ModuleID = "org.http4s" %% "http4s-ember-server" % Versions.http4s
     lazy val dsl: ModuleID = "org.http4s" %% "http4s-dsl" % Versions.http4s
-//    lazy val clientCurl: ModuleID = "org.http4s" %% "http4s-curl" % Versions.http4s
+    lazy val circe: ModuleID = "org.http4s" %% "http4s-circe" % Versions.http4s
+  }
+
+  object Circe {
+    lazy val core: ModuleID = "io.circe" %% "circe-core" % Versions.circe
+    lazy val generic: ModuleID = "io.circe" %% "circe-generic" % Versions.circe
+    lazy val parser: ModuleID = "io.circe" %% "circe-parser" % Versions.circe
   }
 
   private def depends(modules: ModuleID*): Seq[Def.Setting[Seq[ModuleID]]] = Seq(libraryDependencies ++= modules)
