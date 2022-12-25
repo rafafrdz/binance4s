@@ -62,7 +62,7 @@ case object API extends BinanceMode {
 
 case object Test extends BinanceMode {
 
-  val uri: String = "https://testnet.binance.vision/api/v3/account?"
+  val uri: String = "https://testnet.binance.vision"
 
   val value: String = "test"
 
