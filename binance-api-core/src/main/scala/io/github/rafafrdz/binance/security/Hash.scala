@@ -28,11 +28,11 @@ object Hash {
     case object SHA512 extends Algorithm
   }
 
-  def hmec256[T](data: T): BinanceTask[String] = hmec[T](data)(Algorithm.SHA256)
+  def hmac256[T](data: T): BinanceTask[String] = hmac[T](data)(Algorithm.SHA256)
 
-  def hmec512[T](data: T): BinanceTask[String] = hmec[T](data)(Algorithm.SHA512)
+  def hmac512[T](data: T): BinanceTask[String] = hmac[T](data)(Algorithm.SHA512)
 
-  def hmec[T]: HashFunction[T, BinanceTask[String]] =
+  def hmac[T]: HashFunction[T, BinanceTask[String]] =
     (data: T) => (algorithm: Algorithm) => (bclient: BinanceClient) =>
       hash[T](data)(algorithm)(bclient).map(digest => digest.hex)
 

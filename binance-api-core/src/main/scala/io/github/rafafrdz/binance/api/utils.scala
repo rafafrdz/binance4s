@@ -1,12 +1,18 @@
 package io.github.rafafrdz.binance.api
 
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.Date
 import scala.util.matching.Regex
 
 object utils {
 
   object timestamp {
+
+    def current: Date = Date.from(new Instant(System.currentTimeMillis()))
+
+    def before(days: Long): Date = Date.from(new Instant(System.currentTimeMillis()).minusSeconds(days * 86400))
+
     def parse(date: String): NormalizedDate = NormalizedDate(date)
 
     case class NormalizedDate private(normalized: String, pattern: String) {
