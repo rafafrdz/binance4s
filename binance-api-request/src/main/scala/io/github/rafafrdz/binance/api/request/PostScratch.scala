@@ -2,21 +2,17 @@ package io.github.rafafrdz.binance.api.request
 
 import cats.effect._
 import io.github.rafafrdz.binance.BinanceTask
+import io.github.rafafrdz.binance.api.function.query._
+import io.github.rafafrdz.binance.api.function.uri._
 import io.github.rafafrdz.binance.api.query.BinanceQuery
+import io.github.rafafrdz.binance.api.uri.BinanceUri
 import io.github.rafafrdz.binance.client.BinanceClient
-import io.github.rafafrdz.binance.config.mode.Test
-import org.http4s.EntityDecoder.byteVector
 import org.http4s.dsl.io.POST
-import org.http4s.ember.client.EmberClientBuilder
-import org.http4s.{Query, Request, Uri}
-import scodec.bits.ByteVector
 
 
-object PostScratch extends IOApp.Simple {
+object PostScratch extends IOApp.Simple with BinanceExecute {
 
-  val testURI: Uri = Uri.unsafeFromString(Test.uri)
-  val postUri: Uri = testURI / "api" / "v3" / "order"
-  val client =
+  lazy val client: BinanceClient =
     BinanceClient
       .build
       .test
@@ -24,36 +20,19 @@ object PostScratch extends IOApp.Simple {
       .create()
 
   val queryPost: BinanceTask[BinanceQuery] =
-    BinanceQuery.build
-      .symbol("LTCBTC")
-      .side("BUY")
-      ._type("LIMIT")
-      .timeInForce("GTC")
-      .quantity(1)
-      .price(0.1)
-      .recvWindow(5000)
-      .timestamp.?
+    (symbol("LTCBTC") & side("BUY") & _type("LIMIT") &
+      timeInForce("GTC") & quantity(1) & price(0.1) &
+      recvWindow(5000) & timestamp).?
 
-  val queryPostCompleted: BinanceTask[ByteVector] = bclient =>
-    for {
-      query <- queryPost(bclient)
-      uriCompleted = postUri.copy(query = Query.unsafeFromString(query.show()))
-      postRequested = Request[IO](POST).withUri(uriCompleted)
-      res <- doPost(postRequested)
-    } yield res
+  //  val bPostUri: BinanceTask[BinanceUri] = api \ v3 \ order ? queryPost
 
-
-  val post: Request[IO] = Request[IO](POST).withUri(postUri)
-
-  def doPost(postRequest: Request[IO]): IO[ByteVector] =
-    EmberClientBuilder
-      .default[IO]
-      .build
-      .use { client => client.expect(postRequest) }
+  /** Disable Fast Withdraw Switch */
+  val disableFastWithdrawSwitchTask: BinanceTask[BinanceUri] =
+    mode("api") \ sapi \ v1 \ account \ disableFastWithdrawSwitch ? timestamp
 
   override def run: IO[Unit] =
     for {
-      dd <- queryPostCompleted(client)
-      _ <- IO.println(dd)
+      json <- client.run(execute[String](POST, disableFastWithdrawSwitchTask))
+      _ <- IO.println(json)
     } yield ()
 }
