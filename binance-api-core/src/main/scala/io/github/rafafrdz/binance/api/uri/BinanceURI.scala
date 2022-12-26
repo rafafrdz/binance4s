@@ -46,6 +46,8 @@ case class BinanceURI private[api](mode: BinanceMode = Test, path: Vector[String
 
   def getall: BinanceURI = /("getall")
 
+  def exchangeInfo: BinanceURI = /("exchangeInfo")
+
   def withdraw: BinanceURI = /("withdraw")
 
   def deposit: BinanceURI = /("deposit")
@@ -59,6 +61,8 @@ case class BinanceURI private[api](mode: BinanceMode = Test, path: Vector[String
   def asset: BinanceURI = /("asset")
 
   def dribblet: BinanceURI = /("dribblet")
+
+  def ping: BinanceURI = /("ping")
 
   def apiTradingStatus: BinanceURI = /("apiTradingStatus")
 
