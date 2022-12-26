@@ -68,7 +68,7 @@ case class BinanceURI private[api](mode: BinanceMode = Test, path: Vector[String
 
   def system: BinanceURI = /("system")
 
-  def statuss: BinanceURI = /("status")
+  def statuz: BinanceURI = /("status")
 
   def _apply: BinanceURI = /("apply")
 

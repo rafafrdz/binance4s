@@ -33,7 +33,7 @@ object BinanceGetEx extends IOApp.Simple {
 
   /** System Status */
   lazy val systemStatus: BinanceTask[BinanceURI] =
-    sapi \ v1 \ system \ statuss ? timestamp
+    sapi \ v1 \ system \ statuz ? timestamp
 
 
   override def run: IO[Unit] =
