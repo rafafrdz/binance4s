@@ -10,10 +10,10 @@ trait BinanceClient {
 
   val config: BinanceConfig
 
-  def execute[T](task: BinanceTask[T]): IO[T] = task(self)
+  def run[T](task: BinanceTask[T]): IO[T] = task(self)
 
-  def executeUnsafe[T](task: BinanceTask[T])(implicit runtime: unsafe.IORuntime): T =
-    execute(task).unsafeRunSync()
+  def runUnsafe[T](task: BinanceTask[T])(implicit runtime: unsafe.IORuntime): T =
+    run(task).unsafeRunSync()
 }
 
 object BinanceClient {
