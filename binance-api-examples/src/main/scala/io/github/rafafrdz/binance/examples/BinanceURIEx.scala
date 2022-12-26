@@ -44,11 +44,11 @@ object BinanceURIEx extends IOApp.Simple {
       uri3 <- bnc.run(accountAPITradingStatus)
       uri4 <- bnc.run(dustLog)
       uri5 <- bnc.run(dailyAccountSnapshot)
-      _ <- IO.println(uri1.show())
-      _ <- IO.println(uri2.show())
-      _ <- IO.println(uri3.show())
-      _ <- IO.println(uri4.show())
-      _ <- IO.println(uri5.show())
+      _ <- IO.println(uri1)
+      _ <- IO.println(uri2)
+      _ <- IO.println(uri3)
+      _ <- IO.println(uri4)
+      _ <- IO.println(uri5)
 
     } yield ()
 }

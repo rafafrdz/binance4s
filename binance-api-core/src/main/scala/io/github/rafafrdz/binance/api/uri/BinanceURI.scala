@@ -87,6 +87,8 @@ case class BinanceURI private[api](mode: BinanceMode = Test, path: Vector[String
   def v6: BinanceURI = v(6)
 
   def show(): String = uri + "/" + path.mkString("/") + '?' + query.show()
+
+  override def toString: String = show()
 }
 
 object BinanceURI {

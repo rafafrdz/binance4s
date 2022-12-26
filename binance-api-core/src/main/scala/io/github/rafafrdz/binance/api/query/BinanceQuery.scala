@@ -159,6 +159,5 @@ object BinanceQuery {
     append(qr, newqr)
   }
 
-
   def merge(qrs: BinanceQuery*): BinanceQuery = qrs.reduceLeft(append)
 }
