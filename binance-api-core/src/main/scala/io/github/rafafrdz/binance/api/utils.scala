@@ -9,9 +9,9 @@ object utils {
 
   object timestamp {
 
-    def current: Date = Date.from(new Instant(System.currentTimeMillis()))
+    def current: Date = Date.from(Instant.now())
 
-    def before(days: Long): Date = Date.from(new Instant(System.currentTimeMillis()).minusSeconds(days * 86400))
+    def before(days: Long): Date = Date.from(Instant.now().minusSeconds(days * 86400))
 
     def parse(date: String): NormalizedDate = NormalizedDate(date)
 

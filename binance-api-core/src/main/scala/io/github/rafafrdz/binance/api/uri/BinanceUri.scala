@@ -1,18 +1,28 @@
 package io.github.rafafrdz.binance.api.uri
 
+import io.github.rafafrdz.binance.BinanceTask
 import io.github.rafafrdz.binance.api.query.BinanceQuery
 import io.github.rafafrdz.binance.config.mode.{BinanceMode, Test}
 
-case class BinanceUri private(mode: BinanceMode = Test, path: Vector[String] = Vector.empty, query: BinanceQuery = BinanceQuery.build) {
+case class BinanceUri private[api](mode: BinanceMode = Test, path: Vector[String] = Vector.empty, query: BinanceQuery = BinanceQuery.build) {
   self =>
 
   private lazy val uri: String = mode.uri
 
   def mode(api: BinanceMode): BinanceUri = self.copy(mode = api)
 
+  def from: BinanceTask[BinanceUri] = client => client.config.mode.map(mode(_))
+
   def /(path: String): BinanceUri = self.copy(path = self.path :+ path)
 
-  def ?(query: BinanceQuery): BinanceUri = self.copy(query = query)
+  def \(uri: BinanceUri): BinanceUri = self.copy(path = self.path ++ uri.path)
+
+  private def ??(query: BinanceQuery): BinanceUri = self.copy(query = query)
+
+  def ?(query: BinanceQuery): BinanceTask[BinanceUri] = ?(query.?)
+
+  def ?(query: BinanceTask[BinanceQuery]): BinanceTask[BinanceUri] =
+    client => query(client).map(??)
 
   def api: BinanceUri = /("api")
 
@@ -30,9 +40,15 @@ case class BinanceUri private(mode: BinanceMode = Test, path: Vector[String] = V
 
   def deposit: BinanceUri = /("deposit")
 
+  def addrezz: BinanceUri = /("address")
+
   def hisrec: BinanceUri = /("hisrec")
 
   def history: BinanceUri = /("history")
+  def asset: BinanceUri = /("asset")
+  def dribblet: BinanceUri = /("dribblet")
+  def apiTradingStatus: BinanceUri = /("apiTradingStatus")
+  def accountSnapshot: BinanceUri = /("accountSnapshot")
 
   def _apply: BinanceUri = /("apply")
 

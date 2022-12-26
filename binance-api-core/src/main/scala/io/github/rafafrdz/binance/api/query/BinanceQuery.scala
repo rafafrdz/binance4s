@@ -7,7 +7,7 @@ import io.github.rafafrdz.binance.api.utils
 import io.github.rafafrdz.binance.security.Hash
 
 
-case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[Long] = None) {
+case class BinanceQuery private[api](options: Set[QueryOption[String]] = Set.empty, time: Option[Long] = None) {
   self =>
 
   def keys: Set[String] = options.map(_.key)
@@ -18,6 +18,10 @@ case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[
 
   def merge(other: BinanceQuery*): BinanceQuery = BinanceQuery.merge(self +: other: _*)
 
+  def &(other: BinanceQuery): BinanceQuery = merge(other)
+
+  def &(other: QueryOption[String]): BinanceQuery = add(Set(other))
+
   /** Methods for specifics options in the query */
 
   def timestamp: BinanceQuery = {
@@ -26,7 +30,7 @@ case class BinanceQuery private(options: Set[QueryOption[String]], time: Option[
   }
 
   /** Default: 90 days from current timestamp */
-  def startTime(): BinanceQuery = add("startTime" -> utils.timestamp.before(90).getTime)
+  def startTime: BinanceQuery = add("startTime" -> utils.timestamp.before(90).getTime)
 
   /** Default: 90 days from current timestamp */
   def startTime(time: Long): BinanceQuery = add("startTime" -> time)

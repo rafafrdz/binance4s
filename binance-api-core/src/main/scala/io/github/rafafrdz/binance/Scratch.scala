@@ -3,6 +3,7 @@ package io.github.rafafrdz.binance
 import cats.effect.{IO, IOApp}
 import cats.effect.unsafe.implicits.global
 import io.github.rafafrdz.binance.api.query.BinanceQuery
+import io.github.rafafrdz.binance.api.uri.BinanceUri
 import io.github.rafafrdz.binance.client.BinanceClient
 import io.github.rafafrdz.binance.security.Hash
 
