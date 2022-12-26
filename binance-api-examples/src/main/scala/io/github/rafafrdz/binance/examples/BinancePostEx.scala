@@ -1,18 +1,20 @@
-package io.github.rafafrdz.binance.api.request
+package io.github.rafafrdz.binance.examples
 
 import cats.effect._
+import io.circe.Json
 import io.github.rafafrdz.binance.BinanceTask
 import io.github.rafafrdz.binance.api.function.query._
 import io.github.rafafrdz.binance.api.function.uri._
+import io.github.rafafrdz.binance.api.implicits._
 import io.github.rafafrdz.binance.api.query.BinanceQuery
-import io.github.rafafrdz.binance.api.uri.BinanceUri
+import io.github.rafafrdz.binance.api.uri.BinanceURI
 import io.github.rafafrdz.binance.client.BinanceClient
-import org.http4s.dsl.io.POST
+import org.http4s.circe.CirceEntityCodec._
 
 
-object PostScratch extends IOApp.Simple with BinanceExecute {
+object BinancePostEx extends IOApp.Simple {
 
-  lazy val client: BinanceClient =
+  lazy val bnc: BinanceClient =
     BinanceClient
       .build
       .test
@@ -27,12 +29,12 @@ object PostScratch extends IOApp.Simple with BinanceExecute {
   //  val bPostUri: BinanceTask[BinanceUri] = api \ v3 \ order ? queryPost
 
   /** Disable Fast Withdraw Switch */
-  val disableFastWithdrawSwitchTask: BinanceTask[BinanceUri] =
+  val disableFastWithdrawSwitchTask: BinanceTask[BinanceURI] =
     mode("api") \ sapi \ v1 \ account \ disableFastWithdrawSwitch ? timestamp
 
   override def run: IO[Unit] =
     for {
-      json <- client.run(execute[String](POST, disableFastWithdrawSwitchTask))
+      json <- bnc.post[Json](disableFastWithdrawSwitchTask)
       _ <- IO.println(json)
     } yield ()
 }

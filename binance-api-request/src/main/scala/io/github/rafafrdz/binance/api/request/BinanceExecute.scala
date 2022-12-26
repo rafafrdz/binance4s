@@ -2,29 +2,23 @@ package io.github.rafafrdz.binance.api.request
 
 import cats.effect.IO
 import io.github.rafafrdz.binance.BinanceTask
-import io.github.rafafrdz.binance.api.uri.BinanceUri
-import org.http4s.circe.CirceEntityDecoder
-import org.http4s.dsl.io.GET
+import io.github.rafafrdz.binance.api.EntityIODecoder
+import io.github.rafafrdz.binance.api.uri.BinanceURI
 import org.http4s.ember.client.EmberClientBuilder
-import org.http4s.{EntityDecoder, Method, Request, Uri}
+import org.http4s.{Method, Request, Uri}
 
-trait BinanceExecute { //extends CirceEntityDecoder {
+private[api] object BinanceExecute {
 
-  type EntityIODecoder[T] = EntityDecoder[IO, T]
-
-  def execute[T: EntityIODecoder](task: BinanceTask[BinanceUri]): BinanceTask[T] = execute(GET, task)
-
-  def execute[T: EntityIODecoder](method: Method, task: BinanceTask[BinanceUri]): BinanceTask[T] = cl =>
+  def execute[T: EntityIODecoder](method: Method, task: BinanceTask[BinanceURI]): BinanceTask[T] = cl =>
     for {
       binanceUri <- cl.run(task)
-      uri = Uri.unsafeFromString(binanceUri.show())
+      binanceMode <- cl.config.mode
+      uri <- IO(Uri.unsafeFromString(binanceUri.mode(binanceMode).show()))
       request = Request[IO](method = method, uri = uri)
-      json <- execute(request)
-    } yield json
+      response <- execute(request)
+    } yield response
 
   def execute[T: EntityIODecoder](request: Request[IO]): IO[T] =
     EmberClientBuilder.default[IO].build.use(client => client.expect[T](request))
 
 }
-
-//object BinanceExecute extends CirceEntityDecoder
