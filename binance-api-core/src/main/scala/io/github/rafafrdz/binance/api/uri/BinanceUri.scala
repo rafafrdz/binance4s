@@ -11,6 +11,8 @@ case class BinanceUri private[api](mode: BinanceMode = Test, path: Vector[String
 
   def mode(api: BinanceMode): BinanceUri = self.copy(mode = api)
 
+  def mode(api: String): BinanceUri = self.copy(mode = BinanceMode.cast(api))
+
   def from: BinanceTask[BinanceUri] = client => client.config.mode.map(mode(_))
 
   def /(path: String): BinanceUri = self.copy(path = self.path :+ path)
@@ -18,6 +20,8 @@ case class BinanceUri private[api](mode: BinanceMode = Test, path: Vector[String
   def \(uri: BinanceUri): BinanceUri = self.copy(path = self.path ++ uri.path)
 
   private def ??(query: BinanceQuery): BinanceUri = self.copy(query = query)
+
+  def ? : BinanceTask[BinanceUri] = ?(query.?)
 
   def ?(query: BinanceQuery): BinanceTask[BinanceUri] = ?(query.?)
 
@@ -30,11 +34,15 @@ case class BinanceUri private[api](mode: BinanceMode = Test, path: Vector[String
 
   def account: BinanceUri = /("account")
 
+  def order: BinanceUri = /("order")
+
   def disableFastWithdrawSwitch: BinanceUri = /("disableFastWithdrawSwitch")
 
   def enableFastWithdrawSwitch: BinanceUri = /("enableFastWithdrawSwitch")
 
   def capital: BinanceUri = /("capital")
+  def config: BinanceUri = /("config")
+  def getall: BinanceUri = /("getall")
 
   def withdraw: BinanceUri = /("withdraw")
 
@@ -45,10 +53,18 @@ case class BinanceUri private[api](mode: BinanceMode = Test, path: Vector[String
   def hisrec: BinanceUri = /("hisrec")
 
   def history: BinanceUri = /("history")
+
   def asset: BinanceUri = /("asset")
+
   def dribblet: BinanceUri = /("dribblet")
+
   def apiTradingStatus: BinanceUri = /("apiTradingStatus")
+
+  def time: BinanceUri = /("time")
+
   def accountSnapshot: BinanceUri = /("accountSnapshot")
+  def system: BinanceUri = /("system")
+  def statuss: BinanceUri = /("status")
 
   def _apply: BinanceUri = /("apply")
 

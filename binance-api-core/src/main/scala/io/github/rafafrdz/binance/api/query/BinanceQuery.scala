@@ -7,7 +7,7 @@ import io.github.rafafrdz.binance.api.utils
 import io.github.rafafrdz.binance.security.Hash
 
 
-case class BinanceQuery private[api](options: Set[QueryOption[String]] = Set.empty, time: Option[Long] = None) {
+case class BinanceQuery private[api](options: Set[QueryOption[String]] = Set.empty, ttimme: Option[Long] = None) {
   self =>
 
   def keys: Set[String] = options.map(_.key)
@@ -26,7 +26,7 @@ case class BinanceQuery private[api](options: Set[QueryOption[String]] = Set.emp
 
   def timestamp: BinanceQuery = {
     lazy val t: Long = System.currentTimeMillis()
-    add("timestamp" -> t).copy(time = Option(t))
+    add("timestamp" -> t).copy(ttimme = Option(t))
   }
 
   /** Default: 90 days from current timestamp */
@@ -110,7 +110,7 @@ case class BinanceQuery private[api](options: Set[QueryOption[String]] = Set.emp
       } yield add("signature" -> hash)
 
   def formalize: BinanceTask[BinanceQuery] =
-    self.time match {
+    self.ttimme match {
       case Some(_) => signature
       case None => _ => self.pure[IO]
     }
@@ -145,7 +145,7 @@ object BinanceQuery {
 
   def append(qr1: BinanceQuery, qr2: BinanceQuery): BinanceQuery = {
     val diffqr = diff(qr1, qr2)
-    BinanceQuery(diffqr.options ++ qr2.options)
+    BinanceQuery(options = diffqr.options ++ qr2.options, ttimme = qr1.ttimme.orElse(qr2.ttimme))
   }
 
   def set[T](qr: BinanceQuery, kv: (String, T)*): BinanceQuery = {
