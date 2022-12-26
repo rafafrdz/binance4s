@@ -3,8 +3,8 @@ package io.github.rafafrdz.binance.examples
 import cats.effect._
 import io.circe.Json
 import io.github.rafafrdz.binance.BinanceTask
-import io.github.rafafrdz.binance.api.function.uri._
 import io.github.rafafrdz.binance.api.function.query._
+import io.github.rafafrdz.binance.api.function.uri._
 import io.github.rafafrdz.binance.api.implicits._
 import io.github.rafafrdz.binance.api.uri.BinanceURI
 import io.github.rafafrdz.binance.client.BinanceClient

@@ -33,9 +33,9 @@ object OAuth {
     val secretKey: Option[String] = BinanceOptionT.getSysOrEnv(s"$ref.${BinanceCredential.SecretKey}")
     val oauthOpt: Option[OAuth] =
       for {
-      acc <- accessKey
-      scr <- secretKey
-    } yield OAuth(acc, scr)
+        acc <- accessKey
+        scr <- secretKey
+      } yield OAuth(acc, scr)
     oauthOpt.orElse(Option(default))
   }
 
