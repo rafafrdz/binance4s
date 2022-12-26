@@ -39,13 +39,13 @@ object BinanceGetEx extends IOApp.Simple {
   override def run: IO[Unit] =
     for {
       pingUri <- bnc.run(ping)
-      respPing <- bnc.get[String](ping)
-      respCheck <- bnc.get[String](checkServerTime)
       _ <- IO.println(pingUri)
+      respPing <- bnc.get[String](ping)
       _ <- IO.println(respPing)
+      respCheck <- bnc.get[String](checkServerTime)
       _ <- IO.println(respCheck)
-      dailyAccountSnapshotUri <- bnc.run(allCoinsInformation)
-      _ <- IO.println(dailyAccountSnapshotUri)
+      allCoinsInformationUri <- bnc.run(allCoinsInformation)
+      _ <- IO.println(allCoinsInformationUri)
       respDaily <- bnc.get[Json](depositHistory)
       _ <- IO.println(respDaily)
     } yield ()
