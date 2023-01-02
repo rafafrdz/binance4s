@@ -8,7 +8,7 @@ import io.github.rafafrdz.binance.api.function.uri._
 import io.github.rafafrdz.binance.api.implicits._
 import io.github.rafafrdz.binance.api.uri.BinanceURI
 import io.github.rafafrdz.binance.client.BinanceClient
-import org.http4s.circe.CirceEntityCodec._
+//import org.http4s.circe.CirceEntityCodec._
 
 object BinanceGetEx extends IOApp.Simple {
 
@@ -36,6 +36,7 @@ object BinanceGetEx extends IOApp.Simple {
     sapi \ v1 \ system \ statuz ? timestamp
 
 
+  /** In order to parse a Json (Circe), it needs import org.http4s.circe.CirceEntityCodec._ */
   override def run: IO[Unit] =
     for {
       pingUri <- bnc.run(ping)
@@ -46,7 +47,7 @@ object BinanceGetEx extends IOApp.Simple {
       _ <- IO.println(respCheck)
       allCoinsInformationUri <- bnc.run(allCoinsInformation)
       _ <- IO.println(allCoinsInformationUri)
-      respDaily <- bnc.get[Json](depositHistory)
+      respDaily <- bnc.get[String](depositHistory)
       _ <- IO.println(respDaily)
     } yield ()
 }
