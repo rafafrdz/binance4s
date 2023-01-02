@@ -13,7 +13,21 @@ trait BinanceOptionT[O <: BinanceOption] {
 
 object BinanceOptionT {
 
-  def getSysOrEnv(key: String): Option[String] = sys.props.get(key).orElse(sys.env.get(key))
+  def getSysOrEnv(key: String): Option[String] = {
+    val snake: Option[String] = snakeEnvVar(key).flatMap(optGetSysOrEnv)
+    val camel: Option[String] = camelEnvVar(key).flatMap(optGetSysOrEnv)
+    val raw: Option[String] = optGetSysOrEnv(key)
+    snake.orElse(camel).orElse(raw)
+  }
+
+  private def snakeEnvVar(key: String): Option[String] = Try(key.split('.').map(s => s.toUpperCase).mkString("_")).toOption
+
+  private def camelEnvVar(key: String): Option[String] = Try(key.split('.').map(camelStyle).mkString("")).toOption
+
+  private def camelStyle(word: String): String = word.head.toUpper + word.tail
+
+  private def optGetSysOrEnv(key: String): Option[String] =
+    sys.props.get(key).orElse(sys.env.get(key))
 
   private[config] def makeOpt[O <: BinanceOption]
   (parser: String => Option[O], serializer: O => Map[String, String]): BinanceOptionT[O] =

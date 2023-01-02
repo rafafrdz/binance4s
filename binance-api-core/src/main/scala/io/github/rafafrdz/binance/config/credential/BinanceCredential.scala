@@ -17,7 +17,7 @@ object BinanceCredential {
 
   val SecretKey: String = "secret.key"
 
-  implicit val oauthAlgebra: BinanceOptionT[OAuth] =
+  implicit lazy val oauthAlgebra: BinanceOptionT[OAuth] =
     BinanceOptionT.makeOpt(OAuth.parser, OAuth.serializer)
 
 }
