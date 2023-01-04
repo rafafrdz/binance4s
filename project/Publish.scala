@@ -16,7 +16,7 @@ object Publish {
       Developer(
         id = ghUsername,
         name = "Rafael",
-        email = "name@example.com",
+        email = "",
         url = url("https://github.com/rafafrdz")
       )
     ),

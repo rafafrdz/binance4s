@@ -18,7 +18,7 @@ object ProjectSettings {
     developers := List(Developer(
       id = "io.github.rafafrdz ",
       name = "rafael",
-      email = "your@email",
+      email = "",
       url = url("https://github.com/rafafrdz")
     )),
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xlint"),

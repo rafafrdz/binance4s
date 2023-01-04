@@ -8,14 +8,13 @@ object Dependencies {
   lazy val classDependencyCompileTest = "test->test;compile->compile"
 
   /** Modules dependencies */
-  lazy val common = depends(Cats.core, Cats.effects, typeSafeConfig, hasher)
+  lazy val common = depends(Cats.core, Cats.effects, typeSafeConfig, hasher, "net.ruippeixotog" %% "scala-scraper" % "3.0.0")
   lazy val request = depends(Http4s.client, Http4s.server, Http4s.dsl, Http4s.circe, Circe.core, Circe.generic, Circe.parser)
   lazy val examples = common // empty
 
   /** Common dependencies */
   lazy val typeSafeConfig: ModuleID = "com.typesafe" % "config" % Versions.typeSafeConfig
   lazy val hasher: ModuleID = "com.outr" %% "hasher" % Versions.hasher
-//  lazy val lihaoyiRequests: ModuleID = "com.lihaoyi" %% "requests" % Versions.lihaoyiRequests
 
   /** Testing dependencies */
   object Testing {
