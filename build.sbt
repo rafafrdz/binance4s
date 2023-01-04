@@ -1,19 +1,47 @@
+/**
+ * ----------------------------------
+ * Root Project
+ * ----------------------------------
+ * */
+lazy val root = (project in file("."))
+  .settings(name := "binance-api")
+  .settings(ProjectSettings.root: _*)
+  .aggregate(core, request, examples)
 
-name := "binance-api"
-version := "0.2.0"
-scalaVersion := "2.13.8"
+/**
+ * ----------------------------------
+ * Modules
+ * ----------------------------------
+ * */
+lazy val core = (project in file("binance-api-core"))
+  .settings(name := "core")
+  .withId("core")
+  .settings(ProjectSettings.core: _*)
 
+//lazy val coreOld = (project in file("binance-api-core-old"))
+//  .settings(name := "core-old")
+//  .withId("core-old")
+//  .settings(ProjectSettings.core: _*)
 
-lazy val root = project in file(".")
+lazy val request = (project in file("binance-api-request"))
+  .withId("request")
+  .settings(name := "request")
+  .settings(ProjectSettings.request: _*)
+  .dependsOn(core % Dependencies.classDependencyCompileTest)
 
-lazy val extraDependencies =
-  Seq(
-    "com.lihaoyi" %% "requests" % "0.6.9"
-     , "com.outr" %% "hasher" % "1.2.2"
-    , "com.typesafe" % "config" % "1.4.2"
+lazy val examples = (project in file("binance-api-examples"))
+  .withId("examples")
+  .settings(name := "examples")
+  .settings(ProjectSettings.examples: _*)
+  .dependsOn(
+    core % Dependencies.classDependencyCompileTest,
+    request % Dependencies.classDependencyCompileTest
   )
 
-
-libraryDependencies ++= extraDependencies
-
-credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credentials")
+//lazy val module2 = (project in file("module-2"))
+//  .withId("module-2")
+//  .settings(
+//    name := "spark-sbt-module-2"
+//  )
+//  .settings(ProjectSettings.module2: _*)
+//  .dependsOn(core % Dependencies.classDependencyCompileTest)
